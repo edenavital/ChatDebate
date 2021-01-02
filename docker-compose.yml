@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  backend:
+    image: itaywol/$PROJECT_NAME/backend:latest
+    build:
+      context: ./chat-backend
+    ports:
+      - $BACKEND_PORT:$BACKEND_PORT
+      - 9229:9229
+      - $BACKEND_WS_PORT:$BACKEND_WS_PORT
+    container_name: "${PROJECT_NAME}_backend"
+    environment:
+      PORT: $BACKEND_PORT
+      WS_PORT: $BACKEND_WS_PORT
+    volumes:
+      - /usr/src/app/node_modules
+      - ./chat-backend:/usr/src/app
+    command: npm run start:debug
+  frontend:
+    image: itaywol/$PROJECT_NAME/frontend:latest
+    build:
+      context: ./frontend
+    ports:
+      - 3000:3000
+    container_name: "${PROJECT_NAME}_frontend"
+    volumes:
+      - /usr/src/app/node_modules
+      - ./frontend/src:/usr/src/app/src
+    command: npm start 
+    stdin_open: true
+  mongo:
+    image: mongo:latest
+    ports:
+      - $MONGO_PORT:$MONGO_PORT
+    volumes:
+      - "mongoData:/data/db"
+volumes:
+  mongoData:
