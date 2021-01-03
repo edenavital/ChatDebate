@@ -13,6 +13,7 @@
                 "-r",
                 "tsconfig-paths/register"
             ],
+            "cwd": "${workspaceFolder}/chat-backend",
             "autoAttachChildProcesses": true
         }
     ]
