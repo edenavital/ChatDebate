@@ -1,6 +1,7 @@
 import {
   ChatSocket,
   FormattedMatchResponse,
+  FormattedWelcomeMessage
 } from '../socket-handlers/iSocket';
 
 export interface BasicClientInfo {
@@ -49,13 +50,22 @@ export class ChatClient {
     this.socket.join(room);
   }
 
-  welcomeMessage(otherMembers: ChatClient[]) {
-    const response: FormattedMatchResponse = {
-      participants: otherMembers.map(member => ({
-        id: member.id,
-        name: member.name,
-      })),
-    };
+  welcomeMessage(otherMembers: ChatClient[]): void {
+    // if clients array === 1 - SEND REGULAR WELCOME MESSAGE FOR 1:1 ELSE
+    // const response: FormattedMatchResponse = {
+    //   participants: otherMembers.map(member => ({
+    //     id: member.id,
+    //     name: member.name,
+    //   })),
+    // };
+
+    // 1:1 otherMembers > 1 then we should display other message
+    const response: FormattedWelcomeMessage = {
+      id: otherMembers[0].id,
+      name: otherMembers[0].name,
+    }
+
+
     this.chatSocket.emit('match', response);
   }
 }

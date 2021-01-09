@@ -56,9 +56,9 @@ export class SocketHandlersService {
     const response: FormattedMessageResponse = {
       body: payload,
       sender: { id, name },
-      uniqueMessageId:uuidv4()
+      uniqueMessageId: uuidv4()
     };
-    server.to(Object.keys(client.rooms)[0]).emit('message', response);
+    server.to(Object.keys(client.rooms)[0]).emit('receiver:message', response);
   }
 
   public broadCastTypingToRoom(server: Server, client: ChatSocket) {

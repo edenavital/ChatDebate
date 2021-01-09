@@ -20,17 +20,18 @@ class Chat extends Component {
     //Data is array of objects [{id,name}]
     socket.on("match", (data) => {
       console.log("match - data", data);
-      if (data?.length > 0) {
+      if (data && data.name) {
         let updatedMessages = [];
         updatedMessages.push({
-          sender: data[0]?.name,
-          body: "Hey i am " + data[0]?.name,
+          sender: data.name,
+          body: "Hey i am " + data.name,
+          uniqueMessageId: "initial_message"
         });
 
         this.setState({
           loading: false,
           messages: updatedMessages,
-          roomName: data[0].name,
+          roomName: data.name,
         });
       }
     });
@@ -53,11 +54,10 @@ class Chat extends Component {
     });
   }
 
-  setMessages = (messages) => {
-    this.setState((prevState) => ({
-      ...prevState,
-      messages: [...prevState.messages, messages],
-    }));
+  setMessages = (newMessage) => {
+    const updatedMessages = [...this.state.messages]
+    updatedMessages.push(newMessage)
+    this.setState({ messages: updatedMessages });
   };
 
   toggleDrawer = () => {
@@ -98,7 +98,7 @@ class Chat extends Component {
 
     return (
       <div className={classes.chatWrapper}>
-        {/* {loading && <Loader label={"Searching for an opponent ..."} />} */}
+        {loading && <Loader label={"Searching for an opponent ..."} />}
         <div
           style={{
             contentStyle,

@@ -2,7 +2,7 @@ import { Handshake, Socket } from 'socket.io';
 import { BasicClientInfo } from '../client/client';
 
 export interface CustomHandshake extends Handshake {
-    query: ClientJoinRequest
+  query: ClientJoinRequest
 }
 export interface ChatSocket extends Socket {
   handshake: CustomHandshake;
@@ -21,5 +21,10 @@ export interface FormattedMessageResponse {
 }
 
 export interface FormattedMatchResponse {
-    participants:{id:string,name:string}[]
+  participants:{id:string,name:string}[]
+}
+
+export interface FormattedWelcomeMessage {
+  id: string,
+  name: string 
 }

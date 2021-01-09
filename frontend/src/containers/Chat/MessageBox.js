@@ -16,16 +16,11 @@ class MessageBox extends Component {
     socket.on("message", ({ sender: { id, name }, body, uniqueMessageId }) => {
       const { activeId } = this.props;
 
-      if (id !== activeId) {
-        console.log("ENTERED MESSAGE ON");
+      if (!!activeId) {
         const { messages, setMessages } = this.props;
-        if (
-          messages.filter(
-            (messageData) => messageData.uniqueMessageId === uniqueMessageId
-          ).length === 0
-        ) {
-          setMessages({ sender: name, body, uniqueMessageId });
-        }
+        // if (messages.filter((messageData) => messageData.uniqueMessageId === uniqueMessageId).length === 0) {
+        setMessages({ sender: name, body, uniqueMessageId });
+        // }
       }
     });
   }
@@ -74,7 +69,7 @@ class MessageBox extends Component {
         <div style={{ position: "relative", paddingTop: 10 }}>
           {messages.map((msg) => (
             <Message
-              key={msg.sender + msg.body}
+              key={msg.uniqueMessageId}
               classes={classes}
               msgData={msg}
             />

@@ -4,6 +4,6 @@ import { ChatThemesService } from './chat-themes.service';
 
 @Module({
   controllers: [ChatThemesController],
-  providers: [ChatThemesService]
+    providers: [ChatThemesService]
 })
 export class ChatThemesModule {}
