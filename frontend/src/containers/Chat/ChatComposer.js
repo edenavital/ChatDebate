@@ -21,7 +21,7 @@ class ChatComposer extends Component {
   sendMessage = (e) => {
     e.preventDefault();
     const { messageBody } = this.state;
-    socket.emit("message", messageBody);
+    socket.emit("sender:message", messageBody);
     this.setState({ messageBody: "" });
   };
 

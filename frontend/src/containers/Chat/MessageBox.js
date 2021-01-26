@@ -1,4 +1,3 @@
-import { debounce } from "@material-ui/core";
 import React, { Component } from "react";
 import Message from "./Message";
 import scrollIntoView from "scroll-into-view-if-needed";
@@ -11,19 +10,22 @@ class MessageBox extends Component {
     };
 
     this.messageBoxBottom = React.createRef();
+  }
 
-    // getting msg object
-    socket.on("message", ({ sender: { id, name }, body, uniqueMessageId }) => {
-      const { activeId } = this.props;
-
-      if (!!activeId) {
-        const { messages, setMessages } = this.props;
-        // if (messages.filter((messageData) => messageData.uniqueMessageId === uniqueMessageId).length === 0) {
-        setMessages({ sender: name, body, uniqueMessageId });
-        // }
+  componentDidMount() {
+    socket.on("receiver:message", ({ sender: { id, name }, body, uniqueMessageId, msg_type }) => {
+      const { setMessages, activeId } = this.props;
+      const payload = {
+        sender: name,
+        body,
+        uniqueMessageId,
+        rightSide: id !== activeId,
+        msg_type
       }
+      setMessages(payload);
     });
   }
+
 
   componentDidUpdate(prevProps, prevState) {
     const { shouldScrollBottom } = this.state;
@@ -66,7 +68,7 @@ class MessageBox extends Component {
 
     return (
       <div className={classes.messageBoxWrapper} onScroll={this.handleScroll}>
-        <div style={{ position: "relative", paddingTop: 10 }}>
+        <div style={{ position: "relative", padding: 15 }}>
           {messages.map((msg) => (
             <Message
               key={msg.uniqueMessageId}

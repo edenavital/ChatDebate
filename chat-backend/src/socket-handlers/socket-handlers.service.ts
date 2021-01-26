@@ -56,7 +56,8 @@ export class SocketHandlersService {
     const response: FormattedMessageResponse = {
       body: payload,
       sender: { id, name },
-      uniqueMessageId: uuidv4()
+      uniqueMessageId: uuidv4(),
+      msg_type: 1
     };
     server.to(Object.keys(client.rooms)[0]).emit('receiver:message', response);
   }
@@ -66,9 +67,11 @@ export class SocketHandlersService {
     const response: FormattedMessageResponse = {
       body: `${name} is typing...`,
       sender: { name, id },
-      uniqueMessageId:uuidv4()
+      uniqueMessageId: uuidv4(),
+      msg_type: 1
     };
     server.to(Object.keys(client.rooms)[0]).emit('typing', response);
+    // server.to(Object.keys(client.rooms)[0]).emit('typing', response);
     interval(5000)
       .pipe(take(1))
       .subscribe(() => {

@@ -20,6 +20,10 @@ export const MESSAGES_TYPES = {
   USER: 1
 }
 
+export const SYSTEM_MESSAGES = {
+    welcome: "Welcome to the conversation room !"
+}
+
 // NOTIFICATIONS
 // export const NOTIFICATION_TYPES = {
 //   CHANGE: "change",

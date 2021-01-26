@@ -162,16 +162,39 @@ const useStyles = (theme) => ({
   },
   messageWrapper: {
     margin: "5px 5px 5px 10px",
-    padding: "10px",
     display: "flex",
-    borderRadius: 7,
-    backgroundColor: "grey",
     width: "max-content",
     zIndex: 10,
     alignItems: "center",
+    padding: "10px 20px 10px 20px",
+    borderRadius: "20px 20px 20px 0px",
+    background: "#51b9ff",
+    color: "#fff",
+    border: "1px solid #2fabff",
+    boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px"
   },
   messageRightSide: {
     marginLeft: "auto",
+    borderRadius: "20px 20px 0px 20px",
+    background: "#EEEEEE",
+    color: "black",
+    border: "1px solid #c2c2c2"
+  },
+  systemMessage: {
+    margin: "auto",
+    flexDirection: "column",
+    display: 'flex',
+    padding: "10px 30px 10px 34px",
+    background: "#ffffff",
+    border: "1px solid lightgrey",
+    boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+    width: "fit-content",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    "& p": {
+      marginTop: 10
+    }
   },
   // ChatComposer
   ChatComposerWrapper: {
@@ -231,6 +254,7 @@ const useStyles = (theme) => ({
     alignItems: "center",
     justifyContent: "center",
     padding: "0px 5px",
+    height: 56
   },
   // Notes
   notesDrawer: {

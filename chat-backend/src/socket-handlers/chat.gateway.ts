@@ -29,7 +29,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     onDisconnect.next(client);
   }
 
-  @SubscribeMessage('message')
+  @SubscribeMessage('sender:message')
   handleMessage(
     @ConnectedSocket() client: ChatSocket,
     @MessageBody() payload: string,

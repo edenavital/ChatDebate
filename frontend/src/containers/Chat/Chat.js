@@ -20,12 +20,12 @@ class Chat extends Component {
     //Data is array of objects [{id,name}]
     socket.on("match", (data) => {
       console.log("match - data", data);
-      if (data && data.name) {
         let updatedMessages = [];
         updatedMessages.push({
           sender: data.name,
-          body: "Hey i am " + data.name,
-          uniqueMessageId: "initial_message"
+          body: data.body,
+          uniqueMessageId: "initial_message",
+          msg_type: data.msg_type
         });
 
         this.setState({
@@ -33,7 +33,7 @@ class Chat extends Component {
           messages: updatedMessages,
           roomName: data.name,
         });
-      }
+      
     });
 
     socket.on("typing", ({ sender: { id, name }, body }) => {

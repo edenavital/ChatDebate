@@ -4,6 +4,8 @@ import {
   FormattedWelcomeMessage
 } from '../socket-handlers/iSocket';
 
+import { SYSTEM_MESSAGES } from '../constants';
+
 export interface BasicClientInfo {
   id: string;
   name: string;
@@ -62,7 +64,8 @@ export class ChatClient {
     // 1:1 otherMembers > 1 then we should display other message
     const response: FormattedWelcomeMessage = {
       id: otherMembers[0].id,
-      name: otherMembers[0].name,
+      body: SYSTEM_MESSAGES.welcome,
+      msg_type: 0
     }
 
 

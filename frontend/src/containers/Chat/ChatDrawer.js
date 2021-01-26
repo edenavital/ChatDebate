@@ -38,7 +38,7 @@ class ChatDrawer extends Component {
           paper: classes.notesDrawer,
         }}
       >
-        <div className={classes.drawerHeader} style={{ height: 55 }}>
+        <div className={classes.drawerHeader}>
           {/* <IconButton onClick={toggleDrawer}>{<ChevronRightIcon />}</IconButton> */}
           <Typography variant="h5" style={{ fontSize: "1.2rem" }}>
             Menu
