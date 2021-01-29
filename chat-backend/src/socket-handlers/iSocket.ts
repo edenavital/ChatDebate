@@ -28,5 +28,6 @@ export interface FormattedMatchResponse {
 export interface FormattedWelcomeMessage {
   id: string,
   body: string,
-  msg_type: number
+  msg_type: number,
+  sender_name: string
 }

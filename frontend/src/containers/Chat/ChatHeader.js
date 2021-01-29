@@ -11,10 +11,8 @@ import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
 const ChatHeader = ({
   classes,
   typingString,
-  history,
-  setSide,
+  sender_name,
   side,
-  roomName,
   toggleDrawer,
 }) => {
   const opponentSide =
@@ -24,10 +22,8 @@ const ChatHeader = ({
     <div className={classes.headerWrapper}>
       <Avatar classes={{ root: classes.headerAvatar }}>T</Avatar>
       <div className={classes.headerContent}>
-        <Typography>{roomName}</Typography>
-        <Typography style={{ color: "grey" }}>
-          {typingString ? typingString : opponentSide}
-        </Typography>
+        <Typography>{`${sender_name ? sender_name : ""} ${typingString}`}</Typography>
+        <Typography style={{ color: "grey" }}>{opponentSide}</Typography>
       </div>
 
       <div

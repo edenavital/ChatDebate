@@ -30,7 +30,9 @@ export class DataService {
     createUserEntryInDB(chatClient,this.clientModel)
   }
 
-  onDisconnect(Socket: ChatSocket) {}
+  onDisconnect(Socket: ChatSocket) {
+    console.log("Test")
+  }
 
   onMessage(Socket: ChatSocket, payload: string) {}
 }

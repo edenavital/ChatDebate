@@ -44,6 +44,7 @@ export class SocketHandlersService {
   }
 
   public notifyDisconnection(server: Server, client: ChatSocket) {
+    console.log("DISCONNECT EMITTED");
     server.to(Object.keys(client.rooms)[0]).emit('disconnect');
   }
 
@@ -65,7 +66,7 @@ export class SocketHandlersService {
   public broadCastTypingToRoom(server: Server, client: ChatSocket) {
     const { name, id } = new ChatClient(client);
     const response: FormattedMessageResponse = {
-      body: `${name} is typing...`,
+      body: `is typing...`,
       sender: { name, id },
       uniqueMessageId: uuidv4(),
       msg_type: 1

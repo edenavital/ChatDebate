@@ -24,8 +24,10 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   handleConnection(@ConnectedSocket() client: ChatSocket) {
     onConnect.next(client);
   }
-
-  handleDisconnect(@ConnectedSocket() client: ChatSocket) {
+ 
+  handleDisconnect(
+    @ConnectedSocket() client: ChatSocket
+  ) {
     onDisconnect.next(client);
   }
 

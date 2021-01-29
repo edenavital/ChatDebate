@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "./ChatHeader";
+import ChatHeader from "./ChatHeader";
 import MessageBox from "./MessageBox";
 import ChatComposer from "./ChatComposer";
 import Loader from "../../components/Loader";
@@ -13,7 +13,7 @@ class Chat extends Component {
       typingString: "",
       loading: true,
       messages: [],
-      roomName: "",
+      sender_name: "",
       isDrawerOpen: true,
     };
 
@@ -31,7 +31,7 @@ class Chat extends Component {
         this.setState({
           loading: false,
           messages: updatedMessages,
-          roomName: data.name,
+          sender_name: data.sender_name,
         });
       
     });
@@ -41,7 +41,7 @@ class Chat extends Component {
       if (id !== activeId) {
         this.setState((prevState) => ({
           ...prevState,
-          typingString: `${body}...`,
+          typingString: body,
         }));
       }
     });
@@ -73,9 +73,10 @@ class Chat extends Component {
 
   moveToRoot = () => {
     const { history, setSide, setNavBar } = this.props;
+    socket.disconnect(); 
     history.push(ROUTERPATHS.ROOT);
     setNavBar(true);
-    setSide("");
+    setSide("");    
   };
 
   render() {
@@ -84,7 +85,7 @@ class Chat extends Component {
       typingString,
       loading,
       messages,
-      roomName,
+      sender_name,
       isDrawerOpen,
     } = this.state;
 
@@ -109,14 +110,14 @@ class Chat extends Component {
             marginRight: isDrawerOpen ? "300px" : "0px",
           }}
         >
-          <Header
+          <ChatHeader
             classes={classes}
             nickname={nickname}
             side={side}
             typingString={typingString}
             history={history}
             setSide={setSide}
-            roomName={roomName}
+            sender_name={sender_name}
             toggleDrawer={this.toggleDrawer}
           />
           <MessageBox

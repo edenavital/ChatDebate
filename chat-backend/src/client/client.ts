@@ -65,7 +65,8 @@ export class ChatClient {
     const response: FormattedWelcomeMessage = {
       id: otherMembers[0].id,
       body: SYSTEM_MESSAGES.welcome,
-      msg_type: 0
+      msg_type: 0,
+      sender_name: otherMembers[0].name
     }
 
 
