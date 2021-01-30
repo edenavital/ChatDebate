@@ -3,19 +3,21 @@ import SendIcon from "@material-ui/icons/Send";
 import IconButton from "@material-ui/core/IconButton";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 import { socket } from "../../socketUtils";
+import TextareaAutosize from 'react-textarea-autosize';
 class ChatComposer extends Component {
   state = {
     messageBody: "",
   };
 
   handleInputChange = (e) => {
-    const updatedMessageBody = e.target.value;
-    const {typingString} = this.props;
-    // if(typingString === "") {
     socket.emit("typing");
-    // }
+
+    let updatedMessageBody = e.target.value;
+    if (!this.state.messageBody) {
+      updatedMessageBody = e.target.value.replace(/\s/g, '')
+    }
     
-    this.setState({ messageBody: e.target.value });
+    this.setState({ messageBody: updatedMessageBody });
   };
 
   sendMessage = (e) => {
@@ -26,7 +28,9 @@ class ChatComposer extends Component {
   };
 
   handleKeypress = (e) => {
-    if (e.which === 13) {
+    const { messageBody } = this.state;
+    
+    if (e.which === 13 && !e.shiftKey && messageBody) {
       this.sendMessage(e);
     }
   };
@@ -38,9 +42,17 @@ class ChatComposer extends Component {
     return (
       <div className={classes.ChatComposerWrapper}>
         <div className={classes.chatComposerContent}>
-          <input
+          <TextareaAutosize
+            autoFocus
+            minRows={1}
+            maxRows={3}
+            placeholder={"Type a message..."}
+            value={messageBody}
+            onChange={this.handleInputChange}
+            onKeyPress={this.handleKeypress}
             style={{
               padding: 0,
+              fontFamily: 'Poppins',
               background: "none",
               border: "unset",
               width: "100%",
@@ -52,18 +64,13 @@ class ChatComposer extends Component {
               justifyContent: "center",
               resize: "none",
               overflow: "auto",
+              alignSelf: "center"
             }}
-            autoFocus={true}
-            type="text"
-            placeholder={"Type a message..."}
-            value={messageBody}
-            onChange={this.handleInputChange}
-            onKeyPress={this.handleKeypress}
           />
         </div>
         <div className={classes.chatComposerIcons}>
           <IconButton
-            disabled={this.state.messageBody.length < 1 && true}
+            disabled={!messageBody}
             onClick={this.sendMessage}
             className={classes.chatComposerSend}
           >

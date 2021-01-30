@@ -131,7 +131,8 @@ const useStyles = (theme) => ({
     display: "flex",
     padding: "0px 20px",
     alignItems: "center",
-    height: 60,
+    minHeight: 56,
+    maxHeight: 56,
     width: "100%",
     borderBottom: `1px solid ${theme.border.primary}`,
   },
@@ -171,7 +172,8 @@ const useStyles = (theme) => ({
     background: "#51b9ff",
     color: "#fff",
     border: "1px solid #2fabff",
-    boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px"
+    boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+    whiteSpace: "break-spaces"
   },
   messageRightSide: {
     marginLeft: "auto",
@@ -199,8 +201,8 @@ const useStyles = (theme) => ({
   // ChatComposer
   ChatComposerWrapper: {
     width: "100%",
-    minHeight: 50,
-    maxHeight: 80,
+    minHeight: 0,
+    maxHeight: 100,
     borderTop: `1px solid ${theme.border.primary}`,
     background: "lightgrey",
     display: "flex",
@@ -212,10 +214,11 @@ const useStyles = (theme) => ({
   chatComposerContent: {
     display: "flex",
     background: "white",
-    width: "90%",
-    height: "80%",
-    borderRadius: 30,
-    marginLeft: 15,
+    width: "100%",
+    minHeight: 35,
+    maxHeight: 100,
+    borderRadius: 25,
+    margin: 10,
   },
   chatComposerIcons: {
     display: "flex",
