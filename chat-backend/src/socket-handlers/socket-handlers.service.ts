@@ -8,6 +8,9 @@ import { ChatClient } from '../client/client';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Enterance } from 'src/schemes/Enterance.model';
 
 @Injectable()
 export class SocketHandlersService {
@@ -81,5 +84,20 @@ export class SocketHandlersService {
           body: `${name} has stopped typing....`,
         });
       });
+  }
+}
+
+export class EnteranceService {
+  constructor(@InjectModel('Enterance') private readonly EnteranceModel: Model<Enterance>) {}
+
+  async insertEnteranceLog(name: string, party: string, date: string, ip:string) {
+    const newEnterance = new this.EnteranceModel({
+      name,
+      party,
+      date,
+      ip,
+    });
+    const result = await newEnterance.save();
+    return result;
   }
 }
