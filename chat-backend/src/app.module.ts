@@ -11,7 +11,7 @@ import { Client, ClientSchema } from './client/client.schema';
   imports: [
     SocketHandlersModule,
     ChatThemesModule,
-    MongooseModule.forRoot('mongodb+srv://ChatDebate:ChatDebate1996@cluster0.5se11.mongodb.net/ChatDebate?retryWrites=true&w=majority')
+    MongooseModule.forRoot('mongodb+srv://ChatDebate:ChatDebate1996@chatdebate.cq8oy.mongodb.net/chat-debate-database?retryWrites=true&w=majority')
   ],
 })
 export class AppModule {}

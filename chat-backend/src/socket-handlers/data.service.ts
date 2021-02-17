@@ -15,39 +15,48 @@ import { Enterance } from 'src/schemes/Enterance.model';
 */
 @Injectable()
 export class EnteranceService {
-  constructor(@InjectModel('Enterance') private readonly EnteranceModel: Model<Enterance>) {}
+  constructor(@InjectModel('Enterance') private readonly EnteranceModel: Model<Enterance>) { }
 
-  async insertEnteranceLog(name: string, party: string, date: string, ip:string) {
+  async insertEnteranceLog(Socket: ChatSocket) {
+    const { ip, name, theme, party, timestamp } = this.getDataFromUser(Socket);
     const newEnterance = new this.EnteranceModel({
-      name,
-      party,
-      date,
-      ip,
+      ip, name, theme, party, timestamp
     });
-    const result = await newEnterance.save();
-    return result;
+    await newEnterance.save();
   }
 
+  private getDataFromUser = ( Socket: ChatSocket ) => {
+    const clientData = {
+      ip: Socket.handshake.address,
+      name: Socket.handshake.query.name,
+      theme: Socket.handshake.query.theme,
+      party: Socket.handshake.query.party,
+      timestamp: Socket.handshake.issued,
+    }
+    return clientData;
+}
 
-export class DataService {
-  constructor(
-    @InjectModel(Client.name) private clientModel: Model<ClientDocument>,
-  ) {
-    onConnect.subscribe(Socket => this.onConnect(Socket));
-    onDisconnect.subscribe(Socket => this.onDisconnect(Socket));
-    onMessage.subscribe(({ Socket, payload }) =>
-      this.onMessage(Socket, payload),
-    );
-  }
+    
+  // export class DataService {
+  //   constructor(
+  //     @InjectModel(Client.name) private clientModel: Model<ClientDocument>,
+  //   ) {
+  //     onConnect.subscribe(Socket => this.onConnect(Socket));
+  //     onDisconnect.subscribe(Socket => this.onDisconnect(Socket));
+  //     onMessage.subscribe(({ Socket, payload }) =>
+  //       this.onMessage(Socket, payload),
+  //     );
+  //   }
 
-  onConnect(Socket: ChatSocket) {
-    const chatClient = new ChatClient(Socket);
-    createUserEntryInDB(chatClient,this.clientModel)
-  }
+  //   onConnect(Socket: ChatSocket) {
+  //     const chatClient = new ChatClient(Socket);
+  //     createUserEntryInDB(chatClient,this.clientModel)
+  //   }
 
-  onDisconnect(Socket: ChatSocket) {
-    console.log("Test")
-  }
+  //   onDisconnect(Socket: ChatSocket) {
+  //     console.log("Test")
+  //   }
 
-  onMessage(Socket: ChatSocket, payload: string) {}
+  //   onMessage(Socket: ChatSocket, payload: string) {}
+  // }
 }
