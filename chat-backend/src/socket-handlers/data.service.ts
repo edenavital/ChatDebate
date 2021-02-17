@@ -6,7 +6,7 @@ import { ChatClient } from '../client/client';
 import { Client, ClientDocument, createUserEntryInDB } from '../client/client.schema';
 import { onConnect, onDisconnect, onMessage } from '../events';
 import { ChatSocket } from './iSocket';
-
+import { Enterance } from 'src/schemes/Enterance.model';
 
 /*
 * Anything related to database data saving is handled here
@@ -14,6 +14,21 @@ import { ChatSocket } from './iSocket';
 *
 */
 @Injectable()
+export class EnteranceService {
+  constructor(@InjectModel('Enterance') private readonly EnteranceModel: Model<Enterance>) {}
+
+  async insertEnteranceLog(name: string, party: string, date: string, ip:string) {
+    const newEnterance = new this.EnteranceModel({
+      name,
+      party,
+      date,
+      ip,
+    });
+    const result = await newEnterance.save();
+    return result;
+  }
+
+
 export class DataService {
   constructor(
     @InjectModel(Client.name) private clientModel: Model<ClientDocument>,

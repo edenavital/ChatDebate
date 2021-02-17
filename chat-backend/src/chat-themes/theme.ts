@@ -5,14 +5,15 @@ import { EnvironmentService } from '../environment.service';
 import { onDisconnect } from '../events';
 import { ChatSocket } from '../socket-handlers/iSocket';
 import * as mongoose from 'mongoose';
-export const ConnectionSchema = new mongoose.Schema({
-  name: String,
-  party: String,
-  con_date: String,
-  ip: String,  
-});
+import { EnteranceService } from 'src/socket-handlers/data.service'
 
-
+// export const ConnectionSchema = new mongoose.Schema({
+//   name: String,
+//   party: String,
+//   con_date: String,
+// //   ip: String,  
+// });
+ 
 
 enum PartySides {
   left = 0,
@@ -111,7 +112,7 @@ export class Theme {
       client.joinRoom(room);
       client.welcomeMessage(
         clients.filter(otherClient => client.id !== otherClient.id),
-      );
+      )
     });
   }
 
